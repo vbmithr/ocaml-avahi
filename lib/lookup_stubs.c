@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 
 #include <caml/mlvalues.h>
 #include <caml/alloc.h>
@@ -25,17 +26,29 @@ void sb_callback(AvahiServiceBrowser *b,
   caml_callbackN((value)userdata, 8, args);
 }
 
-CAMLprim value stub_avahi_service_browser_new(value client, value srvtype, value flags, value callback)
+CAMLprim value stub_avahi_service_browser_new_native(value client, value interface,
+					      value protocol, value srvtype,
+					      value domain, value flags, value callback)
 {
-  CAMLparam4(client, srvtype, flags, callback);
+  CAMLparam5(client, interface, protocol, srvtype, domain);
+  CAMLxparam2(flags, callback);
+
   AvahiServiceBrowser *asb;
+
+  char *c_domain = NULL;
+  if (Is_block(domain))
+    {
+      size_t c_domain_size = caml_string_length(Field(domain, 0)) + 1;
+      c_domain = malloc(c_domain_size);
+      strncpy(c_domain, String_val(Field(domain, 0)), c_domain_size);
+    }
 
   asb = avahi_service_browser_new(
 				  (AvahiClient *)client,
-				  AVAHI_IF_UNSPEC,
-				  AVAHI_PROTO_UNSPEC,
+				  Int_val(interface),
+				  Int_val(protocol),
 				  String_val(srvtype),
-				  NULL,
+				  (const char *)domain,
 				  Int_val(flags),
 				  sb_callback,
 				  (void*)callback
@@ -45,6 +58,13 @@ CAMLprim value stub_avahi_service_browser_new(value client, value srvtype, value
     CAMLreturn((value)asb);
 
   caml_failwith("avahi_service_browser_new returned NULL");
+}
+
+CAMLprim value stub_avahi_service_browser_new_byte(value *argv, int argn)
+{
+  return stub_avahi_service_browser_new_native(argv[0], argv[1], argv[2],
+					       argv[3], argv[4], argv[5],
+					       argv[6]);
 }
 
 CAMLprim value stub_avahi_service_browser_get_client(value sb)

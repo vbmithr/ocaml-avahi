@@ -6,8 +6,8 @@ module ServiceBrowser = struct
     | AVAHI_BROWSER_CACHE_EXHAUSTED
     | AVAHI_BROWSER_ALL_FOR_NOW
     | AVAHI_BROWSER_FAILURE
-  type callback = t -> event -> string -> string -> string -> int -> unit
-  external create : Client.t -> int -> int -> callback -> t = "stub_avahi_service_browser_new"
+  type callback = t -> int -> int -> event -> string -> string -> string -> int -> unit
+  external create : Client.t -> int -> int -> string -> string option -> int -> callback -> t = "stub_avahi_service_browser_new_byte" "stub_avahi_service_browser_new_native"
   external get_client : t -> Client.t = "stub_avahi_service_browser_get_client"
 end
 
