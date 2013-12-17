@@ -1,0 +1,12 @@
+# OASIS_START
+# DO NOT EDIT (digest: da58f72e23294f970cf2506aeb09b242)
+version = "0.1"
+description = "Avahi bindings for OCaml"
+requires = "unix"
+archive(byte) = "avahi.cma"
+archive(byte, plugin) = "avahi.cma"
+archive(native) = "avahi.cmxa"
+archive(native, plugin) = "avahi.cmxs"
+exists_if = "avahi.cma"
+# OASIS_STOP
+

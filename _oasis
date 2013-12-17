@@ -1,0 +1,17 @@
+OASISFormat: 0.3
+Name: avahi
+Version: 0.1
+Synopsis: Avahi bindings for OCaml
+Authors: Vincent Bernardoff <vb@luminar.eu.org>
+License: ISC
+Plugins: META (0.3), DevFiles (0.3)
+BuildTools: ocamlbuild
+
+Library avahi
+  Path: lib
+  Modules: Avahi, Strlst, Watch, Client, Lookup
+  CSources: avahi_stubs.c, strlst_stubs.c, watch_stubs.c, client_stubs.c, lookup_stubs.c
+  CCLib: -lavahi-common -lavahi-client -ldbus-1
+  BuildDepends: unix
+  CompiledObject: best
+

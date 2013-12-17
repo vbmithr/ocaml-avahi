@@ -1,0 +1,8 @@
+# OASIS_START
+# DO NOT EDIT (digest: 304634305bb23a9059e3eb34d4c27c3f)
+avahi_stubs.o
+strlst_stubs.o
+watch_stubs.o
+client_stubs.o
+lookup_stubs.o
+# OASIS_STOP

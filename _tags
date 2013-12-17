@@ -1,0 +1,30 @@
+# OASIS_START
+# DO NOT EDIT (digest: cf40efc709bb6fc51b7fe461bdf327bc)
+# Ignore VCS directories, you can use the same kind of rule outside 
+# OASIS_START/STOP if you want to exclude directories that contains 
+# useless stuff for the build process
+<**/.svn>: -traverse
+<**/.svn>: not_hygienic
+".bzr": -traverse
+".bzr": not_hygienic
+".hg": -traverse
+".hg": not_hygienic
+".git": -traverse
+".git": not_hygienic
+"_darcs": -traverse
+"_darcs": not_hygienic
+# Library avahi
+"lib/avahi.cmxs": use_avahi
+<lib/avahi.{cma,cmxa}>: oasis_library_avahi_cclib
+"lib/libavahi_stubs.lib": oasis_library_avahi_cclib
+"lib/dllavahi_stubs.dll": oasis_library_avahi_cclib
+"lib/libavahi_stubs.a": oasis_library_avahi_cclib
+"lib/dllavahi_stubs.so": oasis_library_avahi_cclib
+<lib/avahi.{cma,cmxa}>: use_libavahi_stubs
+<lib/*.ml{,i}>: pkg_unix
+"lib/avahi_stubs.c": pkg_unix
+"lib/strlst_stubs.c": pkg_unix
+"lib/watch_stubs.c": pkg_unix
+"lib/client_stubs.c": pkg_unix
+"lib/lookup_stubs.c": pkg_unix
+# OASIS_STOP
